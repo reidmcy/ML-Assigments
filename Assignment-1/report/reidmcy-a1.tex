@@ -30,10 +30,83 @@
 \section{Statistical refresher}
 \subsection{}
 
-\begin{align}
+\begin{align*}
 F(X) &= \int_{-\infty}^{X} f_x(t) dt\\
 \Rightarrow f_x&= \frac{dF}{dX}
+\end{align*}
+
+\begin{align*}
+X &= F^{-1}(U)\\
+F(X) &= F(F^{-1}(U))\\
+F(X) &= U\\
+\Rightarrow X &\sim F
+\end{align*}
+
+\subsection{}
+
+\begin{align}
+X, Y \sim Uniform(0,1)\\
+f_{X,Y}(x,y) &= 1
 \end{align}
+
+\begin{align*}
+Z &= X - Y\\
+F_Z(z) &= P(Z \leq z)\\
+&= P(X\leq  Y + z)\\
+&= \int^{\infty}_{-\infty}\int^{\infty}_{y - z} f_{X,Y}(x,y) dx dy\\
+&= \int^{1}_{0}\int^{1}_{y - z} 1 dx dy\\
+&= \int^{1}_{0} [x]^1_{y - z} dy\\
+&= \int^{1}_{0} 1 - y - z dy\\
+&= 1 - z + 2 z U(-z)
+\end{align*}
+
+\begin{align*}
+Z &= min\lbrace X, Y \rbrace\\
+F_Z(z) &= P(Z \leq z)\\
+&= P(min\lbrace X, Y \rbrace\leq z)\\
+&= 1 - P(min\lbrace X, Y \rbrace\geq z)\\
+&= 1 - P(X \geq z)P(Y \geq z)\\
+&= 1 - (1 - z)(1 - z)\\
+&= 2z - z^2
+\end{align*}
+
+\subsection{}
+\begin{align}
+x &\sim N(0, 1)\\
+Y &= e^X\\
+u^{-1}(Y) &= log(Y) \\
+\frac{du^-1}{dY} &= \frac{1}{Y}\\
+\Rightarrow f_Y(y) &= \frac{1}{y \sqrt{2\pi}} e^{\frac{log^2(y)}{2}}
+\end{align}
+
+\begin{align*}
+\mathbf{E}(Y) &= \int^{\infty}_{-\infty} y \frac{1}{y \sqrt{2\pi}} e^{\frac{log^2(y)}{2}}dy\\
+&= \int^{\infty}_{-\infty} \frac{1}{\sqrt{2\pi}} e^{\frac{log^2(y)}{2}}dy\\
+&= e^{\frac{1}{2}}
+\end{align*}
+
+\begin{align*}
+\mathbf{E}(Y^2) &= \int^{\infty}_{-\infty} y^2 \frac{1}{y \sqrt{2\pi}} e^{\frac{log^2(y)}{2}}dy\\
+&= \int^{\infty}_{-\infty} \frac{y}{\sqrt{2\pi}} e^{\frac{log^2(y)}{2}}dy\\
+&= e^{2}
+\end{align*}
+
+\begin{align*}
+Var(Y) &= \mathbf{E}(Y^2) - [\mathbf{E}(Y)]^2\\
+&= e^{2} - [e^{\frac{1}{2}}]^2\\
+&= e^{2} - e
+\end{align*}
+
+\subsection{}
+\begin{align*}
+Var(Y) &= \mathbf{E}(Y^2) - [\mathbf{E}(Y)]^2\\
+&= \mathbf{E}(\mathbf{E}[Y^2| X]) - [\mathbf{E}(\mathbf{E}[Y| X])]^2\\
+&= \mathbf{E}(Var(Y|X) + [\mathbf{E}(Y | X)]^2) - [\mathbf{E}(\mathbf{E}[Y| X])]^2\\
+&= \mathbf{E}(Var(Y|X)) + \mathbf{E}([\mathbf{E}(Y | X)]^2) - [\mathbf{E}(\mathbf{E}[Y| X])]^2\\
+&= \mathbf{E}(Var(Y|X)) + Var(\mathbf{E}(Y|X))
+\end{align*}
+
+\section{SVD}
 
 \section{Basic Regression}
 \begin{align}
@@ -72,13 +145,14 @@ H^2&= (X(X^T X)^{-1}X^T)^2\\
 &= (X(X^T X)^{-1}X^T)^2\\
 &= H
 \end{align*}
+\subsection{}
 
 \subsection{}
 \begin{align*}
 trace(H) &= trace(X(X^T X)^{-1}X^T)\\
 &= trace((X^T X)^{-1}X^TX)\\
 &= trace(I_d) \\
-&= d = rank(X)\quad \because H\quad is \quad a \quad projection
+&= d = rank(X)\quad \because \text{H is a projection}
 \end{align*}
 
 \end{document}
