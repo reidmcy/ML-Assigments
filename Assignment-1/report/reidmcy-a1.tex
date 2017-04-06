@@ -35,4 +35,50 @@ F(X) &= \int_{-\infty}^{X} f_x(t) dt\\
 \Rightarrow f_x&= \frac{dF}{dX}
 \end{align}
 
+\section{Basic Regression}
+\begin{align}
+H &= X(X^T X)^{-1}X^T\\
+\hat{\beta} &= (X^T X)^{-1}X^T\mathbf{y}\\
+\end{align}
+
+\subsection{}
+\begin{align*}
+H\textbf{y}&= (X(X^T X)^{-1}X^T)\textbf{y}\\
+&=X((X^T X)^{-1}X^T\textbf{y})\\
+ &= X\hat{\beta}
+\end{align*}
+
+\subsection{}
+\begin{align*}
+HX&= X(X^T X)^{-1}X^TX\\
+&= XI\\
+&=X
+\end{align*}
+
+\subsection{}
+\begin{align*}
+H^T&= (X(X^T X)^{-1}X^T)^T\\
+&= {X^T}^T{(X^T X)^{-1}}^TX^T\\
+&= X(X^T {X^T}^T)^{-1}X^T\\
+&= X(X^T X)^{-1}X^T)\\
+&= H
+\end{align*}
+
+\subsection{}
+\begin{align*}
+H^2&= (X(X^T X)^{-1}X^T)^2\\
+&= (X(X^T X)^{-1}X^T)(X(X^T X)^{-1}X^T) \\
+&= X(X^T X)^{-1}IX^T \\
+&= (X(X^T X)^{-1}X^T)^2\\
+&= H
+\end{align*}
+
+\subsection{}
+\begin{align*}
+trace(H) &= trace(X(X^T X)^{-1}X^T)\\
+&= trace((X^T X)^{-1}X^TX)\\
+&= trace(I_d) \\
+&= d = rank(X)\quad \because H\quad is \quad a \quad projection
+\end{align*}
+
 \end{document}
