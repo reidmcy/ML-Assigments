@@ -24,6 +24,8 @@
 
 \DeclareMathOperator*{\argmin}{argmin}
 
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}}
+
 \begin{document}
 \maketitle
 
@@ -52,12 +54,32 @@ f_{X,Y}(x,y) &= 1
 \begin{align*}
 Z &= X - Y\\
 F_Z(z) &= P(Z \leq z)\\
-&= P(X\leq  Y + z)\\
-&= \int^{\infty}_{-\infty}\int^{\infty}_{y - z} f_{X,Y}(x,y) dx dy\\
-&= \int^{1}_{0}\int^{1}_{y - z} 1 dx dy\\
-&= \int^{1}_{0} [x]^1_{y - z} dy\\
-&= \int^{1}_{0} 1 - y - z dy\\
-&= 1 - z + 2 z U(-z)
+&= P(X - Y\leq z)\\
+&= \begin{cases}
+\int^{1 + z}_0\int^{1}_{y - z} dx dy & 1 \leq z \leq 0\\
+1 - \int^{1}_{z}\int^{y - z}_{0} dx dy & 0 < z \leq -1\\
+0 & else
+\end{cases}\\
+&= \begin{cases}
+\int^{1 + z}_0 1 - y - z dy & 1 \leq z \leq 0\\
+1 - \int^{1}_{z} y - z dx dy & 0 < z \leq -1\\
+0 & else
+\end{cases}\\
+&= \begin{cases}
+1 + z - \frac{(1+z)^2}{2} - z(1 + z) & 1 \leq z \leq 0\\
+1 - (\frac{(1)^2}{2} - z - \frac{(z)^2}{2} + z^2) & 0 < z \leq -1\\
+0 & else
+\end{cases}\\
+&= \begin{cases}
+\frac{(z)^2}{2} + z + \frac{1}{2} & 1 \leq z \leq 0\\
+- \frac{(z)^2}{2} + z + \frac{1}{2} & 0 < z \leq -1\\
+0 & else
+\end{cases}\\
+\Rightarrow f_z(z) &= \begin{cases}
+z + 1 & 1 \leq z \leq 0\\
+- z + 1 & 0 < z \leq -1\\
+0 & else
+\end{cases}\\
 \end{align*}
 
 \begin{align*}
@@ -106,8 +128,6 @@ Var(Y) &= \mathbf{E}(Y^2) - [\mathbf{E}(Y)]^2\\
 &= \mathbf{E}(Var(Y|X)) + Var(\mathbf{E}(Y|X))
 \end{align*}
 
-\section{SVD}
-
 \section{Basic Regression}
 \begin{align}
 H &= X(X^T X)^{-1}X^T\\
@@ -154,5 +174,56 @@ trace(H) &= trace(X(X^T X)^{-1}X^T)\\
 &= trace(I_d) \\
 &= d = rank(X)\quad \because \text{H is a projection}
 \end{align*}
+
+\section{SVD}
+
+\begin{align}
+rank(X) &= r\\
+X &= U\Sigma V^T\\
+\Sigma_{ii} &= \sigma_i
+U_i = \textbf{u}_i\\
+V_i = \textbf{v}_i
+\end{align}
+
+\subsection{}
+
+\begin{align*}
+XX^T\textbf{u}_i &= U\Sigma V^T(U\Sigma V^T)^T\textbf{u}_i\\
+&= U\Sigma V^TV\Sigma^T U^T\textbf{u}_i\\
+&= U\Sigma\Sigma^T U^T\textbf{u}_i\\
+&= U\Sigma^2 U^T\textbf{u}_i\\
+&= \lambda \textbf{u}_i  \because \text{U is orthogonal } \exists \lambda\\
+\lambda &= \sigma_i^2 \because \text{U is unitary } \exists \lambda
+\end{align*}
+
+\begin{align*}
+X^TX\textbf{v}_i &= (U\Sigma V^T)^TU\Sigma V^T\textbf{v}_i\\
+&= V\Sigma^T U^TU\Sigma V^T\textbf{v}_i\\
+&= V\Sigma\Sigma^T V^T\textbf{v}_i\\
+&= V\Sigma^2 V^T\textbf{v}_i\\
+&= \lambda \textbf{v}_i  \because \text{V is orthogonal } \exists \lambda\\
+\lambda &= \sigma_i^2 \because \text{U is unitary } \exists \lambda
+\end{align*}
+
+\subsection{}
+
+\begin{align*}
+X \textbf{u}_i   &= U\Sigma V^T \textbf{u}_i\\
+\end{align*}
+
+\subsection{}
+\subsection{}
+\subsection{}
+
+\begin{align*}
+H &= X(X^TX)^{-1}X^T\\
+&= U\Sigma V^T ((U\Sigma V^T)^TU\Sigma V^T)^{-1}(U\Sigma V^T)^T\\
+&= U\Sigma V^T (V\Sigma^TU^TU\Sigma V^T)^{-1}V\Sigma^TU^T\\
+&= U\Sigma V^T (V\Sigma^2 V^T)^{-1}V\Sigma^TU^T\\
+&= U\Sigma V^T V\Sigma^{-2} V^TV\Sigma^TU^T\\
+&= U\Sigma \Sigma^{-2}\Sigma^TU^T\\
+&= UU^T\\
+\end{align*}
+
 
 \end{document}
